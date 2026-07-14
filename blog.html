@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Construction | Blog</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#facc15', // Yellow/Orange color from image
+                        dark: '#1e293b',
+                        darker: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .nav-link.active {
+            color: #facc15;
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #facc15;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50">
+
+    <!-- Navbar Section -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 lg:px-16 flex justify-between items-center text-white border-b border-white/20 bg-transparent">
+        <div class="flex items-center gap-2 text-2xl font-bold"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain"></div>
+        
+        <!-- Mobile menu button -->
+        <button class="lg:hidden text-white text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center space-x-10 font-medium">
+            <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+            <a href="about.html" class="nav-link hover:text-primary transition">About</a>
+            <a href="service.html" class="nav-link hover:text-primary transition">Service</a>
+            <a href="blog.html" class="nav-link active">Blog</a>
+            <a href="contact.html" class="nav-link hover:text-primary transition">Contact</a>
+        </div>
+        <div class="hidden lg:block" id="auth-btn-container">
+            <a href="login.html" id="auth-btn" class="bg-primary text-dark px-6 py-2 rounded font-bold hover:bg-yellow-400 transition inline-flex items-center gap-2">
+                <i class="fa-regular fa-user"></i> Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <header class="relative h-[400px] lg:h-[500px] flex items-center px-6 lg:px-16 pt-20" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('assest/blog-hero.webp'); background-size: cover; background-position: center;">
+        <div class="text-white max-w-3xl">
+            <p class="text-primary font-bold tracking-wider text-xs lg:text-sm mb-4 flex items-center gap-3 uppercase">
+                Our Blog <span class="w-10 h-[1px] bg-primary block"></span>
+            </p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">Insights, Ideas &<br>Construction Trends</h1>
+            <p class="mb-10 text-base lg:text-lg text-gray-200 max-w-xl">Stay updated with the latest news, industry insights, and expert tips from the construction world.</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <section class="py-16 px-6 lg:px-16 max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
+        
+        <!-- Left Column: Blog Articles -->
+        <div class="lg:w-2/3">
+            <h2 class="text-3xl font-bold text-dark mb-8 flex items-center gap-3">
+                Latest Articles
+            </h2>
+            <div class="w-16 h-1 bg-primary mb-10 -mt-5"></div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Blog Card 1 -->
+                <div class="bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-4 left-4 bg-primary text-dark text-xs font-bold px-3 py-1 rounded">Construction</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-gray-500 text-xs mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> May 20, 2024
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3 leading-snug group-hover:text-primary transition">How Modern Construction Techniques Save Time & Cost</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">Explore the latest construction techniques that improve efficiency and reduce project costs in modern development.</p>
+                        <a href="404.html" class="text-primary font-bold text-sm flex items-center gap-2 hover:text-yellow-600 transition">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Card 2 -->
+                <div class="bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="assest/construction-blog.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-4 left-4 bg-primary text-dark text-xs font-bold px-3 py-1 rounded">Design</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-gray-500 text-xs mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> May 15, 2024
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3 leading-snug group-hover:text-primary transition">Sustainable Building: The Future of Construction</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">Sustainable practices and green materials are shaping the future of our buildings and environmental impact.</p>
+                        <a href="404.html" class="text-primary font-bold text-sm flex items-center gap-2 hover:text-yellow-600 transition">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>   
+
+                <!-- Blog Card 3 -->
+                <div class="bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="assest/blog-safety.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-4 left-4 bg-primary text-dark text-xs font-bold px-3 py-1 rounded">Safety</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-gray-500 text-xs mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> May 10, 2024
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3 leading-snug group-hover:text-primary transition">Top 10 Construction Safety Practices</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">Safety should always come first. Here are the top practices every site should follow to protect their workers.</p>
+                        <a href="404.html" class="text-primary font-bold text-sm flex items-center gap-2 hover:text-yellow-600 transition">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Card 4 -->
+                <div class="bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="assest/blog-section.webp " class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-4 left-4  bg-primary text-dark text-xs font-bold px-3 py-1 rounded">Planning</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-gray-500 text-xs mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> May 05, 2024
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3 leading-snug group-hover:text-primary transition">Importance of Planning in Construction Projects</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">A solid plan is the foundation of a successful construction project. Learn why planning matters from day one.</p>
+                        <a href="404.html" class="text-primary font-bold text-sm flex items-center gap-2 hover:text-yellow-600 transition">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Card 5 -->
+                <div class="bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-4 left-4 bg-primary text-dark text-xs font-bold px-3 py-1 rounded">Interior</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-gray-500 text-xs mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> Apr 28, 2024
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3 leading-snug group-hover:text-primary transition">Latest Interior Design Trends for 2024</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">From minimalism to smart interiors, discover the top interior design trends of the year taking over homes.</p>
+                        <a href="404.html" class="text-primary font-bold text-sm flex items-center gap-2 hover:text-yellow-600 transition">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Card 6 -->
+                <div class="bg-white rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-4 left-4 bg-primary text-dark text-xs font-bold px-3 py-1 rounded">Technology</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="text-gray-500 text-xs mb-3 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar"></i> Apr 20, 2024
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-3 leading-snug group-hover:text-primary transition">How Technology is Transforming Construction</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">Technology and innovation are redefining how projects are planned, built, and managed.</p>
+                        <a href="404.html" class="text-primary font-bold text-sm flex items-center gap-2 hover:text-yellow-600 transition">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center md:justify-start items-center gap-2 mt-12">
+                <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-500 hover:text-dark hover:border-gray-300 transition"><i class="fa-solid fa-angle-left"></i></button>
+                <button class="w-10 h-10 bg-primary border border-primary rounded flex items-center justify-center text-dark font-bold">1</button>
+                <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-700 font-medium hover:bg-gray-50 transition">2</button>
+                <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-700 font-medium hover:bg-gray-50 transition">3</button>
+                <button class="w-10 h-10 bg-white border border-gray-200 rounded flex items-center justify-center text-gray-500 hover:text-dark hover:border-gray-300 transition"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Right Column: Sidebar -->
+        <div class="lg:w-1/3 space-y-10">
+            <!-- Search -->
+            <div class="flex">
+                <input type="text" placeholder="Search articles..." class="w-full border border-gray-200 p-4 rounded-l focus:outline-none focus:border-primary">
+                <button class="bg-primary text-dark px-6 rounded-r hover:bg-yellow-400 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <!-- Categories -->
+            <div>
+                <h3 class="text-xl font-bold text-dark mb-6">Categories</h3>
+                <div class="space-y-2">
+                    <a href="404.html" class="flex items-center gap-3 p-3 bg-yellow-50 text-dark font-semibold rounded transition"><i class="fa-solid fa-border-all text-primary w-5"></i> All Categories</a>
+                    <a href="404.html" class="flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 hover:text-dark font-medium rounded transition"><i class="fa-solid fa-building text-gray-400 w-5"></i> Construction</a>
+                    <a href="404.html" class="flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 hover:text-dark font-medium rounded transition"><i class="fa-solid fa-house-chimney-window text-gray-400 w-5"></i> Design & Planning</a>
+                    <a href="404.html" class="flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 hover:text-dark font-medium rounded transition"><i class="fa-solid fa-hard-hat text-gray-400 w-5"></i> Safety</a>
+                    <a href="404.html" class="flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 hover:text-dark font-medium rounded transition"><i class="fa-solid fa-microchip text-gray-400 w-5"></i> Technology</a>
+                    <a href="404.html" class="flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 hover:text-dark font-medium rounded transition"><i class="fa-solid fa-leaf text-gray-400 w-5"></i> Sustainability</a>
+                    <a href="404.html" class="flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 hover:text-dark font-medium rounded transition"><i class="fa-solid fa-couch text-gray-400 w-5"></i> Interior Design</a>
+                </div>
+            </div>
+
+            <!-- Recent Posts -->
+            <div>
+                <h3 class="text-xl font-bold text-dark mb-6">Recent Posts</h3>
+                <div class="space-y-5">
+                    <a href="404.html" class="flex gap-4 group">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=150&auto=format&fit=crop" class="w-20 h-20 rounded object-cover">
+                        <div>
+                            <h4 class="font-bold text-dark text-sm mb-1 group-hover:text-primary transition leading-tight">How Modern Construction Techniques Save Time & Cost</h4>
+                            <p class="text-gray-500 text-xs flex items-center gap-1"><i class="fa-regular fa-calendar"></i> May 20, 2024</p>
+                        </div>
+                    </a>
+                    <a href="404.html" class="flex gap-4 group">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=150&auto=format&fit=crop" class="w-20 h-20 rounded object-cover">
+                        <div>
+                            <h4 class="font-bold text-dark text-sm mb-1 group-hover:text-primary transition leading-tight">Sustainable Building: The Future of Construction</h4>
+                            <p class="text-gray-500 text-xs flex items-center gap-1"><i class="fa-regular fa-calendar"></i> May 15, 2024</p>
+                        </div>
+                    </a>
+                    <a href="404.html" class="flex gap-4 group">
+                        <img src="assest/safety-first.webp" class="w-20 h-20 rounded object-cover">
+                        <div>
+                            <h4 class="font-bold text-dark text-sm mb-1 group-hover:text-primary transition leading-tight">Top 10 Construction Safety Practices</h4>
+                            <p class="text-gray-500 text-xs flex items-center gap-1"><i class="fa-regular fa-calendar"></i> May 10, 2024</p>
+                        </div>
+                    </a>
+                    <a href="404.html" class="flex gap-4 group">
+                        <img src="assest/buliding.webp" class="w-20 h-20 rounded object-cover">
+                        <div>
+                            <h4 class="font-bold text-dark text-sm mb-1 group-hover:text-primary transition leading-tight">Importance of Planning in Construction Projects</h4>
+                            <p class="text-gray-500 text-xs flex items-center gap-1"><i class="fa-regular fa-calendar"></i> May 05, 2024</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Newsletter Sidebar -->
+            <div>
+                <h3 class="text-xl font-bold text-dark mb-4">Newsletter</h3>
+                <form action="404.html" method="get" class="flex flex-col gap-3">
+                    <input type="email" required placeholder="Enter your email" class="w-full border border-gray-200 p-3 rounded focus:outline-none focus:border-primary text-sm">
+                    <button type="submit" class="bg-primary text-dark font-bold px-6 py-3 rounded hover:bg-yellow-400 transition w-full flex justify-center items-center gap-2"><i class="fa-regular fa-paper-plane"></i> Subscribe</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Bottom CTA / Newsletter Section -->
+    <section class="py-0 px-6 lg:px-16 mb-20 max-w-7xl mx-auto">
+        <div class="bg-dark text-white rounded-2xl p-10 lg:p-14 flex flex-col md:flex-row items-center gap-10 shadow-2xl relative overflow-hidden">
+            <!-- Background texture -->
+            <div class="absolute inset-0 opacity-10" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center;"></div>
+            
+            <div class="relative z-10 w-24 h-24 bg-primary rounded-full flex items-center justify-center text-dark shrink-0">
+                <i class="fa-regular fa-envelope-open text-4xl"></i>
+            </div>
+            <div class="relative z-10 md:w-1/2 text-center md:text-left">
+                <h2 class="text-2xl lg:text-3xl font-bold mb-2">Stay Updated with Construction Insights</h2>
+                <p class="text-gray-300 text-sm leading-relaxed">Get the latest articles, tips, and industry updates delivered straight to your inbox.</p>
+            </div>
+            <div class="relative z-10 md:w-auto flex-1 w-full">
+                <form action="404.html" method="get" class="flex flex-col sm:flex-row gap-0">
+                    <input type="email" required placeholder="Enter your email" class="w-full border-none p-4 rounded-t sm:rounded-l sm:rounded-tr-none focus:outline-none text-dark">
+                    <button type="submit" class="bg-primary text-dark font-bold px-8 py-4 rounded-b sm:rounded-r sm:rounded-bl-none hover:bg-yellow-400 transition flex items-center justify-center gap-2 whitespace-nowrap"><i class="fa-regular fa-paper-plane"></i> Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#111827] text-white pt-20 pb-8 px-6 lg:px-16 border-t border-gray-800">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto mb-16">
+            <!-- Col 1 -->
+            <div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-white mb-6"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain rounded"></div>
+                <p class="text-gray-400 text-sm leading-loose mb-6">
+                    Building structures, building trust.<br>
+                    We deliver quality construction<br>
+                    solutions with excellence.
+                </p>
+                <div class="flex space-x-3">
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-facebook-f text-sm"></i></a>
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-twitter text-sm"></i></a>
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-linkedin-in text-sm"></i></a>
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-instagram text-sm"></i></a>
+                </div>
+            </div>
+            
+            <!-- Col 2 -->
+            <div>
+                <h4 class="font-bold mb-6 text-lg text-white">Quick Links</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="index.html" class="hover:text-primary transition duration-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-primary transition duration-300">About Us</a></li>
+                    <li><a href="service.html" class="hover:text-primary transition duration-300">Service</a></li>
+                    <li><a href="blog.html" class="hover:text-primary transition duration-300">Blog</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3 -->
+            <div>
+                <h4 class="font-bold mb-6 text-lg text-white">Our Services</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Building Construction</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Project Management</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Design & Planning</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Renovation & Remodeling</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Civil Engineering</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4 -->
+            <div>
+                <h4 class="font-bold mb-6 text-lg text-white">Contact Info</h4>
+                <ul class="space-y-5 text-gray-400 text-sm">
+                    <li class="flex items-start gap-4">
+                        <i class="fa-solid fa-location-dot mt-1.5 text-primary text-base"></i>
+                        <span class="leading-relaxed">123 Construction Way,<br>BuildCity, BC 56789</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-phone text-primary text-base"></i>
+                        <span>+1 (234) 567-8900</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-envelope text-primary text-base"></i>
+                        <span>info@stackly.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
+            <p>© 2026 Stackly. All Rights Reserved.</p>
+            <a href="404.html" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-dark mt-4 md:mt-0 hover:bg-yellow-400 transition shadow-lg">
+                <i class="fa-solid fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Check Auth state for Navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedData = localStorage.getItem('stackly_user');
+            if (storedData) {
+                const user = JSON.parse(storedData);
+                const authBtn = document.getElementById('auth-btn');
+                if (authBtn) {
+                    if (user.role === 'admin') {
+                        authBtn.href = 'admin-dashboard.html';
+                        authBtn.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Dashboard';
+                    } else {
+                        authBtn.href = 'user-dashboard.html';
+                        authBtn.innerHTML = '<i class="fa-solid fa-table-columns"></i> Dashboard';
+                    }
+                }
+            }
+        });
+    </script>
+<script src="scritp.js"></script>
+</body>
+</html>
+

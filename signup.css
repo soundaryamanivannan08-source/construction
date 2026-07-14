@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    background: #f8fafc;
+}
+
+/* Split Layout Container */
+.split-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Left Side - Image / Branding */
+.split-left {
+    display: none;
+    flex: 1;
+    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80') center/cover no-repeat;
+    color: white;
+    padding: 4rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+    .split-left {
+        display: flex;
+    }
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.brand-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #facc15;
+    color: #1e293b;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-text-content h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.brand-text-content p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+/* Right Side - Form */
+.split-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: white;
+    overflow-y: auto;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 480px;
+    margin: auto 0;
+    padding: 2rem 0;
+}
+
+/* Mobile Logo */
+.mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+@media (min-width: 992px) {
+    .mobile-logo {
+        display: none;
+    }
+}
+
+.auth-header {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #64748b;
+    font-size: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: #0f172a;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #facc15;
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2);
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover {
+    color: #475569;
+}
+
+/* Validation Styles */
+.form-control.valid {
+    border-color: #22c55e;
+}
+
+.form-control.invalid {
+    border-color: #ef4444;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    display: none;
+    font-weight: 500;
+}
+
+.form-control.invalid + .error-message,
+.password-container:has(.invalid) + .error-message,
+.password-container:has(.invalid) ~ .error-message {
+    display: block;
+}
+
+/* Password Strength Indicator */
+.strength-meter {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    display: none;
+}
+
+.strength-meter-fill {
+    height: 100%;
+    width: 0;
+    transition: all 0.3s ease;
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: none;
+    font-weight: 500;
+}
+
+.strength-weak .strength-meter-fill { width: 33.33%; background: #ef4444; }
+.strength-weak ~ .strength-text { display: block; color: #ef4444; }
+
+.strength-medium .strength-meter-fill { width: 66.66%; background: #eab308; }
+.strength-medium ~ .strength-text { display: block; color: #eab308; }
+
+.strength-strong .strength-meter-fill { width: 100%; background: #22c55e; }
+.strength-strong ~ .strength-text { display: block; color: #22c55e; }
+
+.strength-active .strength-meter { display: block; }
+
+/* Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 0.2rem;
+    accent-color: #facc15;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.checkbox-group label {
+    font-size: 0.9rem;
+    color: #475569;
+    cursor: pointer;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.checkbox-group a {
+    color: #eab308;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+.btn-submit {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: #facc15;
+    color: #0f172a;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background: #eab308;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(250, 204, 21, 0.2);
+}
+
+.btn-submit:disabled {
+    background: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+    border: 1px solid #e2e8f0;
+}
+
+/* Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(15, 23, 42, 0.1);
+    border-radius: 50%;
+    border-top-color: #0f172a;
+    animation: spin 1s ease-in-out infinite;
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.btn-submit.loading .spinner { display: block; }
+.btn-submit.loading .btn-text { display: none; }
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+.auth-footer a {
+    color: #eab308;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .split-right {
+        padding: 1.5rem;
+    }
+}

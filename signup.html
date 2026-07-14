@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Construction | Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="split-layout">
+        
+        <!-- Left Branding Section -->
+        <div class="split-left">
+            <div class="brand-logo"><img src="assest/logo.1.png" alt="Stackly Logo" style="height: 40px; width: auto; border-radius: 4px;"></div>
+            
+            <div class="brand-text-content">
+                <h2>Start Building<br>With Stackly.</h2>
+                <p>Join thousands of professionals in creating lasting landmarks. Get access to detailed project management tools today.</p>
+            </div>
+            
+            <div class="brand-footer">
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">&copy; 2026 Stackly Construction. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Right Form Section -->
+        <div class="split-right">
+            <div class="auth-container">
+                
+                <div class="mobile-logo"><img src="assest/logo.1.png" alt="Stackly Logo" style="height: 32px; width: auto; border-radius: 4px;"></div>
+
+                <div class="auth-header">
+                    <h1>Create Account</h1>
+                    <p>Join Stackly to build your future with us.</p>
+                </div>
+
+                <form id="signup-form" novalidate>
+                    <!-- Role Selector -->
+                    <div class="form-group">
+                        <label for="role">Select Role <span style="color: #ef4444;">*</span></label>
+                        <select id="role" class="form-control" required>
+                            <option value="" disabled selected>Choose your role</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <div class="error-message">Please select a role.</div>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label for="username">Username <span style="color: #ef4444;">*</span></label>
+                        <input type="text" id="username" class="form-control" placeholder="e.g. John Doe" required>
+                        <div class="error-message">Only alphabets and spaces are allowed.</div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email Address <span style="color: #ef4444;">*</span></label>
+                        <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                        <div class="error-message">Please enter a valid email address.</div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group" id="password-group">
+                        <label for="password">Password <span style="color: #ef4444;">*</span></label>
+                        <div class="password-container">
+                            <input type="password" id="password" class="form-control" placeholder="Create a strong password" required>
+                            <i class="fa-regular fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+                        </div>
+                        <div class="strength-meter"><div class="strength-meter-fill"></div></div>
+                        <div class="strength-text">Password Strength</div>
+                        <div class="error-message">Must be at least 6 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 special character.</div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password <span style="color: #ef4444;">*</span></label>
+                        <div class="password-container">
+                            <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your password" required>
+                            <i class="fa-regular fa-eye toggle-password" onclick="togglePassword('confirm-password', this)"></i>
+                        </div>
+                        <div class="error-message">Passwords do not match.</div>
+                    </div>
+
+                    <!-- Terms & Conditions -->
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the <a href="404.html">Terms and Conditions</a> and <a href="404.html">Privacy Policy</a>.</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="register-btn" class="btn-submit" disabled>
+                        <span class="btn-text">Create Account</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Already have an account? <a href="login.html">Sign In</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="signup.js"></script>
+<script src="scritp.js"></script>
+</body>
+</html>
+

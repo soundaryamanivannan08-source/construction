@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly User Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: '#facc15', dark: '#1e293b' }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide all sections by default except the active one */
+        .dashboard-section { display: none; }
+        .dashboard-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sidebar active styling */
+        .sidebar-link { transition: all 0.2s; }
+        .sidebar-link.active {
+            background-color: #facc15;
+            color: #1e293b !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .sidebar-link:not(.active) { color: #d1d5db; }
+        .sidebar-link:not(.active):hover { background-color: #1f2937; color: white; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-dark/50 z-20 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-64 bg-dark text-white flex flex-col z-30 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none">
+        <div class="p-6 flex justify-between items-center border-b border-gray-700">
+            <div class="flex items-center gap-2 text-2xl font-bold">
+                <img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain">
+                <span class="text-xs text-primary font-medium ml-1 mt-1">CLIENT</span>
+            </div>
+            <button class="md:hidden text-gray-400 hover:text-white" onclick="toggleSidebar()">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="p-4 flex-1 overflow-y-auto">
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2 px-4">Menu</p>
+            <nav class="space-y-1">
+                <a href="#" onclick="switchTab('dashboard', this)" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg font-bold">
+                    <i class="fa-solid fa-table-columns w-5 text-center"></i> Dashboard
+                </a>
+                <a href="#" onclick="switchTab('projects', this)" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+                    <i class="fa-solid fa-building w-5 text-center"></i> My Projects
+                </a>
+                <a href="#" onclick="switchTab('documents', this)" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+                    <i class="fa-solid fa-folder-open w-5 text-center"></i> Documents
+                </a>
+                <a href="#" onclick="switchTab('invoices', this)" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i> Invoices
+                </a>
+                <a href="#" onclick="switchTab('messages', this)" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+                    <i class="fa-regular fa-comments w-5 text-center"></i> Messages
+                    <span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">2</span>
+                </a>
+            </nav>
+            
+            <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mt-8 mb-2 px-4">Settings</p>
+            <nav class="space-y-1">
+                <a href="#" onclick="switchTab('settings', this)" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i> Account Settings
+                </a>
+                <a href="404.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+                    <i class="fa-solid fa-headset w-5 text-center"></i> Support
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-gray-700">
+            <a href="#" onclick="logout()" class="flex items-center gap-3 text-gray-400 hover:text-red-400 px-4 py-3 rounded-lg transition font-medium">
+                <i class="fa-solid fa-right-from-bracket w-5 text-center"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <main class="flex-1 flex flex-col overflow-hidden relative">
+        
+        <!-- Header -->
+        <header class="bg-white px-4 sm:px-6 py-4 shadow-sm flex justify-between items-center z-10 shrink-0">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-dark transition" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="hidden sm:flex bg-gray-50 rounded-lg px-4 py-2 items-center gap-2 w-64 border border-gray-200 focus-within:border-primary focus-within:bg-white transition">
+                    <i class="fa-solid fa-search text-gray-400"></i>
+                    <input type="text" placeholder="Search projects or docs..." class="bg-transparent border-none outline-none text-sm w-full">
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 sm:gap-6 relative">
+                <button onclick="window.location.href='404.html'" class="relative text-gray-400 hover:text-dark transition">
+                    <i class="fa-solid fa-bell text-xl"></i>
+                    <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white"></span>
+                </button>
+                
+                <div class="h-8 w-px bg-gray-200"></div>
+                
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="toggleDropdown()">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-bold text-dark leading-tight" id="user-name">User</p>
+                        <p class="text-xs text-gray-500">Client</p>
+                    </div>
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-dark font-bold text-lg shadow-md group-hover:ring-4 ring-primary/20 transition">
+                        <span id="user-initial">U</span>
+                    </div>
+                </div>
+                
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown" class="absolute top-12 right-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 hidden flex-col py-2 transform origin-top-right transition-all z-50 mt-2">
+                    <a href="#" onclick="switchTab('settings', document.querySelectorAll('.sidebar-link')[5])" class="px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary transition flex items-center gap-3 font-medium"><i class="fa-regular fa-user w-4 text-center"></i> Profile</a>
+                    <div class="border-t border-gray-100 my-1"></div>
+                    <a href="#" onclick="logout()" class="px-4 py-2 text-red-500 hover:bg-red-50 transition flex items-center gap-3 font-medium"><i class="fa-solid fa-right-from-bracket w-4 text-center"></i> Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 lg:p-10">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- ================== SECTION: DASHBOARD ================== -->
+                <div id="section-dashboard" class="dashboard-section active">
+                    <!-- Welcome Banner -->
+                    <div class="bg-gradient-to-r from-dark to-[#0f172a] rounded-3xl p-8 md:p-10 shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 mb-8 text-white">
+                        <div class="relative z-10 w-full md:w-2/3">
+                            <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Welcome back, <span id="welcome-name" class="text-primary">User</span>!</h1>
+                            <p class="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">Here is the latest update on your construction projects. Track milestones, view documents, and manage your invoices all in one place.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="switchTab('projects', document.querySelectorAll('.sidebar-link')[1])" class="bg-primary text-dark px-6 py-2.5 rounded-lg font-bold hover:bg-yellow-400 transition shadow-[0_0_15px_rgba(250,204,21,0.3)]">View Projects</button>
+                                <button onclick="switchTab('messages', document.querySelectorAll('.sidebar-link')[4])" class="bg-white/10 border border-white/20 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-white/20 transition">Contact Manager</button>
+                            </div>
+                        </div>
+                        <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-30 hidden md:block">
+                            <!-- Construction Blueprint Abstract -->
+                            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="#facc15" stroke-width="0.5" stroke-dasharray="2,2"/>
+                                <path d="M20,0 L20,100 M40,0 L40,100 M60,0 L60,100 M80,0 L80,100" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+                                <path d="M0,20 L100,20 M0,40 L100,40 M0,60 L100,60 M0,80 L100,80" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+                                <rect x="30" y="30" width="40" height="40" fill="none" stroke="#facc15" stroke-width="1"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8">
+                        <!-- Project Status summary -->
+                        <div class="xl:col-span-2 space-y-6">
+                            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div>
+                                        <span class="text-xs font-bold text-primary uppercase">Active Project Overview</span>
+                                        <h2 class="font-bold text-xl text-dark">Skyline Tower Renovation</h2>
+                                    </div>
+                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">45% Complete</span>
+                                </div>
+                                <div class="flex items-center gap-6">
+                                    <div class="w-32 h-32 relative flex-shrink-0">
+                                        <canvas id="projectProgressChart"></canvas>
+                                    </div>
+                                    <div class="flex-1 space-y-3">
+                                        <p class="text-sm text-gray-600">Currently executing Phase 2 (Interior Framing). The project is on schedule and within budget parameters.</p>
+                                        <div class="w-full bg-gray-100 h-2 rounded-full mt-4">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 45%;"></div>
+                                        </div>
+                                        <button onclick="switchTab('projects', document.querySelectorAll('.sidebar-link')[1])" class="text-sm font-bold text-primary mt-2">View Full Details <i class="fa-solid fa-arrow-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Invoices summary -->
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-bold text-lg text-dark">Recent Invoices</h3>
+                                    <button onclick="switchTab('invoices', document.querySelectorAll('.sidebar-link')[3])" class="text-sm text-primary font-bold">View All</button>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg border border-gray-50">
+                                        <div>
+                                            <p class="font-bold text-sm text-dark">INV-2026-042</p>
+                                            <p class="text-xs text-gray-500">May 01, 2026</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-bold text-dark">$45,000</p>
+                                            <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded font-bold uppercase">Pending</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents summary -->
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-bold text-lg text-dark">Latest Documents</h3>
+                                <button onclick="switchTab('documents', document.querySelectorAll('.sidebar-link')[2])" class="text-sm text-primary font-bold">View All</button>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3 border-b border-gray-50 pb-3">
+                                    <div class="w-10 h-10 bg-red-50 text-red-500 rounded flex items-center justify-center"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <div>
+                                        <p class="text-sm font-bold text-dark">Permit_Approvals.pdf</p>
+                                        <p class="text-xs text-gray-500">Added yesterday</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-center gap-3 border-b border-gray-50 pb-3">
+                                    <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded flex items-center justify-center"><i class="fa-solid fa-file-image"></i></div>
+                                    <div>
+                                        <p class="text-sm font-bold text-dark">Site_Renderings_V2.png</p>
+                                        <p class="text-xs text-gray-500">Added 3 days ago</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================== SECTION: PROJECTS ================== -->
+                <div id="section-projects" class="dashboard-section">
+                    <h2 class="text-2xl font-bold text-dark mb-6">My Projects</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Project Card 1 (Active) -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+                            <div class="h-40 bg-gray-200 relative">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Project">
+                                <div class="absolute top-4 right-4 bg-yellow-400 text-dark text-xs font-bold px-3 py-1 rounded-full shadow-lg">In Progress</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-xl text-dark mb-2">Skyline Tower Renovation</h3>
+                                <p class="text-sm text-gray-500 mb-6"><i class="fa-solid fa-location-dot mr-1"></i> 450 Downtown Ave, Metro City</p>
+                                
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="font-bold text-dark">Progress</span>
+                                        <span class="text-primary font-bold">45%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 h-2 rounded-full">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                                    <div class="text-sm">
+                                        <p class="text-gray-500 text-xs">Est. Completion</p>
+                                        <p class="font-bold text-dark">Nov 2026</p>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="text-primary hover:text-dark font-bold text-sm transition border border-primary px-4 py-1.5 rounded-lg">Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Card 2 (Completed) -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden opacity-80 hover:opacity-100 transition">
+                            <div class="h-40 bg-gray-200 relative">
+                                <img src="assest/Oakwood_Residences_1.webp" class="w-full h-full object-cover grayscale" alt="Project">
+                                <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">Completed</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-xl text-dark mb-2">Oakwood Villas</h3>
+                                <p class="text-sm text-gray-500 mb-6"><i class="fa-solid fa-location-dot mr-1"></i> Suburban Hills</p>
+                                
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="font-bold text-dark">Progress</span>
+                                        <span class="text-green-500 font-bold">100%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 h-2 rounded-full">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+                                    <div class="text-sm">
+                                        <p class="text-gray-500 text-xs">Completed</p>
+                                        <p class="font-bold text-dark">Aug 2024</p>
+                                    </div>
+                                    <button onclick="window.location.href='404.html'" class="text-gray-500 hover:text-dark font-bold text-sm transition border border-gray-300 px-4 py-1.5 rounded-lg">View Archive</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================== SECTION: DOCUMENTS ================== -->
+                <div id="section-documents" class="dashboard-section">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-dark">Documents & Files</h2>
+                        <button onclick="window.location.href='404.html'" class="bg-dark text-white px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-gray-800 transition"><i class="fa-solid fa-upload mr-2"></i> Upload</button>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition">
+                            <i class="fa-solid fa-folder text-4xl text-yellow-400"></i>
+                            <span class="font-bold text-sm">Blueprints</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition">
+                            <i class="fa-solid fa-folder text-4xl text-yellow-400"></i>
+                            <span class="font-bold text-sm">Permits</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition">
+                            <i class="fa-solid fa-folder text-4xl text-yellow-400"></i>
+                            <span class="font-bold text-sm">Contracts</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition">
+                            <i class="fa-solid fa-folder text-4xl text-yellow-400"></i>
+                            <span class="font-bold text-sm">Inspections</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+                        <div class="p-4 border-b border-gray-100 font-bold text-lg">Recent Files</div>
+                        <ul class="divide-y divide-gray-100">
+                            <li class="flex justify-between items-center p-4 hover:bg-gray-50 transition">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+                                    <div>
+                                        <p class="font-bold text-sm text-dark">Permit_Approvals_Final.pdf</p>
+                                        <p class="text-xs text-gray-500">2.4 MB • May 10, 2026</p>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='404.html'" class="text-gray-400 hover:text-primary"><i class="fa-solid fa-download"></i></button>
+                            </li>
+                            <li class="flex justify-between items-center p-4 hover:bg-gray-50 transition">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-solid fa-file-excel text-green-500 text-2xl"></i>
+                                    <div>
+                                        <p class="font-bold text-sm text-dark">Budget_Estimate_V3.xlsx</p>
+                                        <p class="text-xs text-gray-500">1.1 MB • May 08, 2026</p>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='404.html'" class="text-gray-400 hover:text-primary"><i class="fa-solid fa-download"></i></button>
+                            </li>
+                            <li class="flex justify-between items-center p-4 hover:bg-gray-50 transition">
+                                <div class="flex items-center gap-4">
+                                    <i class="fa-solid fa-file-image text-blue-500 text-2xl"></i>
+                                    <div>
+                                        <p class="font-bold text-sm text-dark">Lobby_Rendering.png</p>
+                                        <p class="text-xs text-gray-500">5.8 MB • May 05, 2026</p>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='404.html'" class="text-gray-400 hover:text-primary"><i class="fa-solid fa-download"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ================== SECTION: INVOICES ================== -->
+                <div id="section-invoices" class="dashboard-section">
+                    <h2 class="text-2xl font-bold text-dark mb-6">Billing & Invoices</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                            <p class="text-gray-500 text-sm font-bold mb-1">Total Paid</p>
+                            <h3 class="text-2xl font-bold text-dark">$120,500.00</h3>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm border-l-4 border-l-red-500">
+                            <p class="text-gray-500 text-sm font-bold mb-1">Amount Due</p>
+                            <h3 class="text-2xl font-bold text-red-600">$45,000.00</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-gray-50 text-gray-500 border-b border-gray-100 uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 font-bold">Invoice #</th>
+                                    <th class="p-4 font-bold">Date Issued</th>
+                                    <th class="p-4 font-bold">Description</th>
+                                    <th class="p-4 font-bold">Amount</th>
+                                    <th class="p-4 font-bold">Status</th>
+                                    <th class="p-4 font-bold text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50">
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="p-4 font-bold text-dark">INV-2026-042</td>
+                                    <td class="p-4 text-gray-600">May 01, 2026</td>
+                                    <td class="p-4 text-gray-600">Phase 2 Material Deposit</td>
+                                    <td class="p-4 font-bold text-dark">$45,000.00</td>
+                                    <td class="p-4"><span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-md text-xs font-bold border border-red-100">Pending</span></td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="bg-dark text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-800 transition">Pay Now</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="p-4 font-bold text-dark">INV-2026-018</td>
+                                    <td class="p-4 text-gray-600">Apr 01, 2026</td>
+                                    <td class="p-4 text-gray-600">Phase 1 Completion</td>
+                                    <td class="p-4 font-bold text-dark">$120,500.00</td>
+                                    <td class="p-4"><span class="bg-green-50 text-green-600 px-2.5 py-1 rounded-md text-xs font-bold border border-green-100">Paid</span></td>
+                                    <td class="p-4 text-right">
+                                        <button onclick="window.location.href='404.html'" class="text-gray-400 hover:text-primary transition p-2"><i class="fa-solid fa-download"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ================== SECTION: MESSAGES ================== -->
+                <div id="section-messages" class="dashboard-section h-[70vh]">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col">
+                        <div class="p-4 border-b border-gray-100 flex items-center gap-4 bg-gray-50 rounded-t-2xl">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border border-gray-300" alt="PM">
+                            <div>
+                                <h3 class="font-bold text-dark">Rob Vance</h3>
+                                <p class="text-xs text-green-500 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 block"></span> Online</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 p-6 overflow-y-auto space-y-4 bg-gray-50/50">
+                            <!-- Msg Received -->
+                            <div class="flex justify-start">
+                                <div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-none max-w-md shadow-sm">
+                                    <p class="text-sm text-gray-700">Hello! Just wanted to update you that the steel framing for the second floor has arrived on site today.</p>
+                                    <span class="text-[10px] text-gray-400 mt-1 block">10:42 AM</span>
+                                </div>
+                            </div>
+                            <!-- Msg Sent -->
+                            <div class="flex justify-end">
+                                <div class="bg-primary p-3 rounded-2xl rounded-tr-none max-w-md shadow-sm">
+                                    <p class="text-sm text-dark font-medium">That's great news Rob! Does this keep us on schedule for the inspection next week?</p>
+                                    <span class="text-[10px] text-dark/70 mt-1 block text-right">10:45 AM</span>
+                                </div>
+                            </div>
+                            <!-- Msg Received -->
+                            <div class="flex justify-start">
+                                <div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-none max-w-md shadow-sm">
+                                    <p class="text-sm text-gray-700">Yes, we are perfectly on schedule. I'll upload the latest photos to the Documents folder shortly.</p>
+                                    <span class="text-[10px] text-gray-400 mt-1 block">10:50 AM</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-gray-100 bg-white rounded-b-2xl">
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Type your message..." class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 outline-none focus:border-primary text-sm">
+                                <button onclick="window.location.href='404.html'" class="bg-dark text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================== SECTION: SETTINGS ================== -->
+                <div id="section-settings" class="dashboard-section">
+                    <h2 class="text-2xl font-bold text-dark mb-6">Account Settings</h2>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl">
+                        <form onsubmit="event.preventDefault(); alert('Settings saved successfully!');">
+                            <div class="mb-6 flex items-center gap-6">
+                                <div class="w-20 h-20 bg-primary text-dark font-bold text-3xl rounded-full flex items-center justify-center">U</div>
+                                <button onclick="window.location.href='404.html'" type="button" class="border border-gray-300 text-sm font-bold px-4 py-2 rounded-lg hover:bg-gray-50 transition">Change Avatar</button>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-600 mb-1">First Name</label>
+                                    <input type="text" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="John">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-600 mb-1">Last Name</label>
+                                    <input type="text" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="Doe">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-bold text-gray-600 mb-1">Email Address</label>
+                                <input type="email" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="john@example.com">
+                            </div>
+                            
+                            <div class="mb-8 border-t border-gray-100 pt-6">
+                                <h3 class="font-bold mb-4 text-dark">Notifications</h3>
+                                <label class="flex items-center gap-3 mb-3 cursor-pointer">
+                                    <input type="checkbox" checked class="accent-primary w-4 h-4">
+                                    <span class="text-sm text-gray-600">Email me when a new document is uploaded</span>
+                                </label>
+                                <label class="flex items-center gap-3 mb-3 cursor-pointer">
+                                    <input type="checkbox" checked class="accent-primary w-4 h-4">
+                                    <span class="text-sm text-gray-600">Email me when a new invoice is generated</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="bg-primary text-dark font-bold px-6 py-2.5 rounded-lg hover:bg-yellow-400 transition shadow">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Check Auth
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedData = localStorage.getItem('stackly_user');
+            if (!storedData) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const user = JSON.parse(storedData);
+            if (user.role === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+                return;
+            }
+                
+                // Update UI with user data
+                const nameSpan1 = document.getElementById('user-name');
+                const nameSpan2 = document.getElementById('welcome-name');
+                const initialSpan = document.getElementById('user-initial');
+                
+                if (user.username) {
+                    const firstName = user.username.split(' ')[0];
+                    if(nameSpan1) nameSpan1.textContent = firstName;
+                    if(nameSpan2) nameSpan2.textContent = firstName;
+                    if(initialSpan) initialSpan.textContent = firstName.charAt(0).toUpperCase();
+                }
+
+            initChart();
+        });
+
+        // Tab Switching Logic
+        function switchTab(tabId, clickedElement) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.dashboard-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Show selected section
+            const target = document.getElementById('section-' + tabId);
+            if(target) target.classList.add('active');
+
+            // Update sidebar active state
+            const links = document.querySelectorAll('.sidebar-link');
+            links.forEach(link => link.classList.remove('active'));
+            if(clickedElement) clickedElement.classList.add('active');
+
+            // Close mobile sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar.classList.contains('-translate-x-full')) {
+                toggleSidebar();
+            }
+        }
+
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Dropdown toggle
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('hidden');
+            dropdown.classList.toggle('flex');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('profile-dropdown');
+            const avatarGroup = document.querySelector('.group');
+            
+            if (dropdown && avatarGroup && !dropdown.contains(e.target) && !avatarGroup.contains(e.target)) {
+                dropdown.classList.add('hidden');
+                dropdown.classList.remove('flex');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('stackly_user'); // Log out actually removes it now so we can test
+            window.location.href = 'index.html';
+        }
+
+        // Chart Initialization (Only runs once, but canvas stays intact when hidden)
+        function initChart() {
+            const canvas = document.getElementById('projectProgressChart');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Remaining'],
+                    datasets: [{
+                        data: [45, 55],
+                        backgroundColor: ['#facc15', '#f1f5f9'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '80%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleFont: { family: 'Inter' },
+                            bodyFont: { family: 'Inter', weight: 'bold' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+<script src="scritp.js"></script>
+</body>
+</html>
+

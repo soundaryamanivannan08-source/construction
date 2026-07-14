@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Construction | Login</title>
+    <link rel="stylesheet" href="login.css">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="split-layout">
+        
+        <!-- Left Branding Section -->
+        <div class="split-left">
+            <div class="brand-logo"><img src="assest/logo.1.png" alt="Stackly Logo" style="height: 40px; width: auto; border-radius: 4px;"></div>
+            
+            <div class="brand-text-content">
+                <h2>Build Your Future<br>With Us.</h2>
+                <p>Access your personalized dashboard to track project progress, manage invoices, and review important documents securely.</p>
+            </div>
+            
+            <div class="brand-footer">
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">&copy; 2026 Stackly Construction. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Right Form Section -->
+        <div class="split-right">
+            <div class="auth-container">
+                
+                <div class="mobile-logo"><img src="assest/logo.1.png" alt="Stackly Logo" style="height: 32px; width: auto; border-radius: 4px;"></div>
+
+                <div class="auth-header">
+                    <h1>Log In</h1>
+                    <p>Welcome back! Please enter your details.</p>
+                </div>
+
+                <div id="login-error" class="alert-error">
+                    Invalid email or password.
+                </div>
+                
+                <div id="login-success" class="alert-success">
+                    Login successful! Redirecting...
+                </div>
+
+                <form id="login-form" novalidate>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="example@gmail.com" required>
+                        <div class="error-message">Please enter a valid email address.</div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-container">
+                            <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                            <i class="fa-regular fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+                        </div>
+                        <div class="error-message">Please enter a password.</div>
+                    </div>
+
+                    <!-- Extras -->
+                    <div class="form-extras">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="404.html" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="login-btn" class="btn-submit" disabled>
+                        <span class="btn-text">Log In</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Don't have an account? <a href="signup.html">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="login.js"></script>
+<script src="scritp.js"></script>
+</body>
+</html>
+

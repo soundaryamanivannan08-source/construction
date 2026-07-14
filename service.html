@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly Construction | Professional Services</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#facc15', // Yellow/Orange color from image
+                        dark: '#1e293b',
+                        darker: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .nav-link.active {
+            color: #facc15;
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #facc15;
+        }
+        .icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fef9c3; /* light yellow bg */
+            color: #eab308; /* yellow icon */
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white">
+
+    <!-- Navbar Section -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 lg:px-16 flex justify-between items-center text-white border-b border-white/20 bg-transparent">
+        <div class="flex items-center gap-2 text-2xl font-bold"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain"></div>
+        
+        <!-- Mobile menu button -->
+        <button class="lg:hidden text-white text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center space-x-10 font-medium">
+            <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+            <a href="about.html" class="nav-link hover:text-primary transition">About</a>
+            <a href="service.html" class="nav-link active">Service</a>
+            <a href="blog.html" class="nav-link hover:text-primary transition">Blog</a>
+            <a href="contact.html" class="nav-link hover:text-primary transition">Contact</a>
+        </div>
+        <div class="hidden lg:block" id="auth-btn-container">
+            <a href="login.html" id="auth-btn" class="bg-primary text-dark px-6 py-2 rounded font-bold hover:bg-yellow-400 transition inline-flex items-center gap-2">
+                <i class="fa-regular fa-user"></i> Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-[550px] lg:h-[600px] flex items-center px-6 lg:px-16 pt-20" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('assest/construction.webp'); background-size: cover; background-position: center;">
+        <div class="text-white max-w-3xl">
+            <p class="text-primary font-bold tracking-wider text-xs lg:text-sm mb-4 flex items-center gap-3 uppercase">
+                What We Do <span class="w-10 h-[1px] bg-primary block"></span>
+            </p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">Our Construction<br>Services</h1>
+            <p class="mb-10 text-base lg:text-lg text-gray-200 max-w-xl">We deliver end-to-end construction solutions with quality, safety, and innovation at the core.</p>
+            <button onclick="window.location.href='404.html'" class="bg-primary text-dark px-8 py-3.5 rounded font-bold hover:bg-yellow-400 transition flex items-center gap-2 w-max">
+                Get a Free Quote <i class="fas fa-arrow-right text-sm"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Services Grid Section -->
+    <section class="py-20 px-6 lg:px-16 bg-gray-50 text-center">
+        <p class="text-primary font-bold tracking-wider text-sm uppercase mb-3">Our Expertise</p>
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-dark">Comprehensive Construction Solutions</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto mb-16">From concept to completion, we provide a wide range of construction services tailored to your needs.</p>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
+            <!-- Card 1 -->
+            <div class="bg-white p-10 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition border border-gray-100 group">
+                <div class="icon-circle group-hover:bg-primary group-hover:text-dark transition duration-300">
+                    <i class="fa-solid fa-building text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-dark">Building Construction</h3>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">We construct residential, commercial, and industrial buildings with superior craftsmanship and modern techniques.</p>
+                <a href="404.html" class="text-primary font-semibold flex items-center gap-2 hover:text-yellow-600 transition text-sm">
+                    Learn More <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white p-10 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition border border-gray-100 group">
+                <div class="icon-circle group-hover:bg-primary group-hover:text-dark transition duration-300">
+                    <i class="fa-solid fa-truck-pickup text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-dark">Project Management</h3>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">Our expert project managers ensure timely delivery, cost efficiency, and seamless execution.</p>
+                <a href="404.html" class="text-primary font-semibold flex items-center gap-2 hover:text-yellow-600 transition text-sm">
+                    Learn More <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white p-10 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition border border-gray-100 group">
+                <div class="icon-circle group-hover:bg-primary group-hover:text-dark transition duration-300">
+                    <i class="fa-solid fa-house-chimney-window text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-dark">Design & Planning</h3>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">Innovative designs and precise planning to bring your vision to life with functionality and style.</p>
+                <a href="404.html" class="text-primary font-semibold flex items-center gap-2 hover:text-yellow-600 transition text-sm">
+                    Learn More <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+            <!-- Card 4 -->
+            <div class="bg-white p-10 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition border border-gray-100 group">
+                <div class="icon-circle group-hover:bg-primary group-hover:text-dark transition duration-300">
+                    <i class="fa-solid fa-screwdriver-wrench text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-dark">Renovation & Remodeling</h3>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">Upgrade and transform your existing space with our renovation and remodeling services.</p>
+                <a href="404.html" class="text-primary font-semibold flex items-center gap-2 hover:text-yellow-600 transition text-sm">
+                    Learn More <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+            <!-- Card 5 -->
+            <div class="bg-white p-10 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition border border-gray-100 group">
+                <div class="icon-circle group-hover:bg-primary group-hover:text-dark transition duration-300">
+                    <i class="fa-solid fa-helmet-safety text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-dark">Civil Engineering</h3>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">Infrastructure development, road construction, and structural works built to last.</p>
+                <a href="404.html" class="text-primary font-semibold flex items-center gap-2 hover:text-yellow-600 transition text-sm">
+                    Learn More <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+            <!-- Card 6 -->
+            <div class="bg-white p-10 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-lg transition border border-gray-100 group">
+                <div class="icon-circle group-hover:bg-primary group-hover:text-dark transition duration-300">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-dark">Safety & Compliance</h3>
+                <p class="text-gray-600 mb-6 text-sm leading-relaxed">We prioritize safety and adhere to all industry standards and regulatory requirements.</p>
+                <a href="404.html" class="text-primary font-semibold flex items-center gap-2 hover:text-yellow-600 transition text-sm">
+                    Learn More <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-[#1f2937] text-white py-16 px-6 lg:px-16 grid grid-cols-2 lg:grid-cols-4 gap-10 text-center relative border-t-8 border-primary">
+        <div class="flex flex-col items-center">
+            <i class="fa-solid fa-users text-4xl text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 to-primary mb-5"></i>
+            <div class="text-4xl font-bold text-primary mb-2 stat-counter" data-target="250">0+</div>
+            <p class="text-gray-300 text-sm font-medium tracking-wide">Projects Completed</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <i class="fa-solid fa-city text-4xl text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 to-primary mb-5"></i>
+            <div class="text-4xl font-bold text-primary mb-2 stat-counter" data-target="180">0+</div>
+            <p class="text-gray-300 text-sm font-medium tracking-wide">Happy Clients</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <i class="fa-solid fa-helmet-safety text-4xl text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 to-primary mb-5"></i>
+            <div class="text-4xl font-bold text-primary mb-2 stat-counter" data-target="15">0+</div>
+            <p class="text-gray-300 text-sm font-medium tracking-wide">Years of Experience</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <i class="fa-solid fa-award text-4xl text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 to-primary mb-5"></i>
+            <div class="text-4xl font-bold text-primary mb-2 stat-counter" data-target="25">0+</div>
+            <p class="text-gray-300 text-sm font-medium tracking-wide">Awards Won</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-6 lg:px-16 bg-white">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-center bg-gray-50 rounded-3xl p-6 lg:p-10 border border-gray-100">
+            <div class="w-full md:w-1/2">
+                <img src="assest/about-hero.webp" alt="Construction Site" class="rounded-2xl shadow-lg w-full h-[300px] object-cover">
+            </div>
+            <div class="w-full md:w-1/2 pr-0 lg:pr-10">
+                <p class="text-primary font-bold tracking-wider text-xs uppercase mb-3">Let's Build Together</p>
+                <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-dark">Have a Project in Mind?</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed text-sm md:text-base">
+                    We're here to help you build your dream.<br>
+                    Let's discuss your project today.
+                </p>
+                <button onclick="window.location.href='404.html'" class="bg-primary text-dark px-8 py-3.5 rounded font-bold hover:bg-yellow-400 transition flex items-center gap-2 w-max">
+                    Contact Us <i class="fas fa-arrow-right text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#111827] text-white pt-20 pb-8 px-6 lg:px-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto mb-16">
+            <!-- Col 1 -->
+            <div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-white mb-6"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain rounded"></div>
+                <p class="text-gray-400 text-sm leading-loose mb-6">
+                    Building structures, building trust.<br>
+                    We deliver quality construction<br>
+                    solutions that stand the test of time.
+                </p>
+                <div class="flex space-x-3">
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-facebook-f text-sm"></i></a>
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-twitter text-sm"></i></a>
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-linkedin-in text-sm"></i></a>
+                    <a href="404.html" class="w-9 h-9 rounded bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-dark transition duration-300"><i class="fab fa-instagram text-sm"></i></a>
+                </div>
+            </div>
+            
+            <!-- Col 2 -->
+            <div>
+                <h4 class="font-bold mb-6 text-lg text-white">Quick Links</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Home</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">About Us</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Services</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Blog</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3 -->
+            <div>
+                <h4 class="font-bold mb-6 text-lg text-white">Our Services</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Building Construction</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Project Management</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Design & Planning</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Renovation & Remodeling</a></li>
+                    <li><a href="404.html" class="hover:text-primary transition duration-300">Civil Engineering</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4 -->
+            <div>
+                <h4 class="font-bold mb-6 text-lg text-white">Contact Info</h4>
+                <ul class="space-y-5 text-gray-400 text-sm">
+                    <li class="flex items-start gap-4">
+                        <i class="fa-solid fa-location-dot mt-1.5 text-primary text-base"></i>
+                        <span class="leading-relaxed">123 Construction Way,<br>BuildCity, BC 56789</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-phone text-primary text-base"></i>
+                        <span>+1 (234) 567-8900</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <i class="fa-solid fa-envelope text-primary text-base"></i>
+                        <span>info@stackly.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
+            <p>© 2026 Stackly. All Rights Reserved.</p>
+            <a href="404.html" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-dark mt-4 md:mt-0 hover:bg-yellow-400 transition shadow-lg">
+                <i class="fa-solid fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Check Auth state for Navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedData = localStorage.getItem('stackly_user');
+            if (storedData) {
+                const user = JSON.parse(storedData);
+                const authBtn = document.getElementById('auth-btn');
+                if (authBtn) {
+                    if (user.role === 'admin') {
+                        authBtn.href = 'admin-dashboard.html';
+                        authBtn.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Dashboard';
+                    } else {
+                        authBtn.href = 'user-dashboard.html';
+                        authBtn.innerHTML = '<i class="fa-solid fa-table-columns"></i> Dashboard';
+                    }
+                }
+            }
+        });
+    </script>
+<script src="scritp.js"></script>
+</body>
+</html>
+
