@@ -342,24 +342,7 @@
     </footer>
 
     <script>
-        // Check Auth state for Navbar
-        document.addEventListener('DOMContentLoaded', () => {
-            const storedData = localStorage.getItem('stackly_user');
-            if (storedData) {
-                const user = JSON.parse(storedData);
-                const authBtn = document.getElementById('auth-btn');
-                if (authBtn) {
-                    if (user.role === 'admin') {
-                        authBtn.href = 'admin-dashboard.html';
-                        authBtn.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Dashboard';
-                    } else {
-                        authBtn.href = 'user-dashboard.html';
-                        authBtn.innerHTML = '<i class="fa-solid fa-table-columns"></i> Dashboard';
-                    }
-                }
-            }
-        });
-    </script>
+        </script>
 <script src="scritp.js"></script>
 </body>
 </html>
