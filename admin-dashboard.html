@@ -707,7 +707,8 @@
         }
 
         function logout() {
-            window.location.href = 'index.html';
+            localStorage.removeItem('stackly_user'); // also clear storage for admin
+            window.location.href = 'login.html';
         }
 
         function switchTab(tabId, clickedElement) {
