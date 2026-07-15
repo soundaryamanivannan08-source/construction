@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('login-form');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
+    const roleInput = document.getElementById('role');
     const loginBtn = document.getElementById('login-btn');
     const errorAlert = document.getElementById('login-error');
     const successAlert = document.getElementById('login-success');
 
     const validity = {
+        role: false,
         email: false,
         password: false
     };
@@ -37,6 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
             element.classList.remove('valid');
         }
     }
+
+    // Role Validation
+    roleInput.addEventListener('change', (e) => {
+        validity.role = e.target.value !== '';
+        setValid(roleInput, validity.role);
+        updateSubmitButton();
+        errorAlert.classList.remove('show');
+    });
 
     // Basic Email Validation (Must have @ and .)
     emailInput.addEventListener('input', (e) => {
@@ -72,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             const enteredEmail = emailInput.value.toLowerCase().trim();
             const enteredPassword = passwordInput.value;
+            const enteredRole = roleInput.value;
 
             // Stop loading
             loginBtn.classList.remove('loading');
@@ -79,9 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Success regardless of input!
             successAlert.classList.add('show');
             
-            // Redirect based on email content
+            // Redirect based on selected role
             setTimeout(() => {
-                if (enteredEmail.includes('admin')) {
+                if (enteredRole === 'admin') {
                     // Create dummy admin session
                     localStorage.setItem('stackly_user', JSON.stringify({
                         email: enteredEmail,

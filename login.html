@@ -33,6 +33,7 @@
                 <div class="mobile-logo"><img src="assest/logo.1.png" alt="Stackly Logo" style="height: 32px; width: auto; border-radius: 4px;"></div>
 
                 <div class="auth-header">
+                    <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #64748b; text-decoration: none; font-size: 0.9rem; font-weight: 500; margin-bottom: 1rem; transition: color 0.2s;" onmouseover="this.style.color='#eab308'" onmouseout="this.style.color='#64748b'"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
                     <h1>Log In</h1>
                     <p>Welcome back! Please enter your details.</p>
                 </div>
@@ -46,6 +47,17 @@
                 </div>
 
                 <form id="login-form" novalidate>
+                    <!-- Role Selector -->
+                    <div class="form-group">
+                        <label for="role">Select Role <span style="color: #ef4444;">*</span></label>
+                        <select id="role" class="form-control" required>
+                            <option value="" disabled selected>Choose your role</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <div class="error-message">Please select a role.</div>
+                    </div>
+
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email Address</label>
