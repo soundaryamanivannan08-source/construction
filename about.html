@@ -44,6 +44,17 @@
             background-color: #facc15;
         }
     </style>
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Prevent overflow issues caused by AOS animations */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body class="font-sans text-gray-800 antialiased bg-white">
 
@@ -236,7 +247,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto mb-16">
             <!-- Col 1 -->
             <div>
-                <div class="flex items-center gap-2 text-2xl font-bold text-white mb-6"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain rounded"></div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-white mb-6"><a href="index.html"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain rounded"></a></div>
                 <p class="text-gray-400 text-sm leading-loose mb-6">
                     Building structures, building trust.<br>
                     We deliver quality construction<br>
@@ -280,11 +291,11 @@
                 <ul class="space-y-5 text-gray-400 text-sm">
                     <li class="flex items-start gap-4">
                         <i class="fa-solid fa-location-dot mt-1.5 text-primary text-base"></i>
-                        <span class="leading-relaxed">123 Construction Way,<br>BuildCity, BC 56789</span>
+                        <span class="leading-relaxed">MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
                     </li>
                     <li class="flex items-center gap-4">
                         <i class="fa-solid fa-phone text-primary text-base"></i>
-                        <span>+1 (234) 567-8900</span>
+                        <span>9876543210</span>
                     </li>
                     <li class="flex items-center gap-4">
                         <i class="fa-solid fa-envelope text-primary text-base"></i>
@@ -296,15 +307,18 @@
 
         <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
             <p>© 2026 Stackly. All Rights Reserved.</p>
-            <a href="404.html" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-dark mt-4 md:mt-0 hover:bg-yellow-400 transition shadow-lg">
-                <i class="fa-solid fa-angle-up"></i>
-            </a>
+            
         </div>
     </footer>
 
     <script>
         </script>
 <script src="scritp.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="aos-init.js"></script>
+
 </body>
 </html>
 

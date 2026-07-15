@@ -41,6 +41,17 @@
         .sidebar-link:not(.active) { color: #d1d5db; }
         .sidebar-link:not(.active):hover { background-color: #1f2937; color: white; }
     </style>
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Prevent overflow issues caused by AOS animations */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
     
@@ -196,7 +207,7 @@
                             <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
                                 <div class="flex justify-between items-center mb-4">
                                     <h3 class="font-bold text-lg text-dark">Recent Invoices</h3>
-                                    <button onclick="switchTab('invoices', document.querySelectorAll('.sidebar-link')[3])" class="text-sm text-primary font-bold">View All</button>
+                                    <a href="404.html" class="text-sm text-primary font-bold">View All</a>
                                 </div>
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg border border-gray-50">
@@ -217,7 +228,7 @@
                         <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
                             <div class="flex justify-between items-center mb-6">
                                 <h3 class="font-bold text-lg text-dark">Latest Documents</h3>
-                                <button onclick="switchTab('documents', document.querySelectorAll('.sidebar-link')[2])" class="text-sm text-primary font-bold">View All</button>
+                                <a href="404.html" class="text-sm text-primary font-bold">View All</a>
                             </div>
                             <ul class="space-y-4">
                                 <li class="flex items-center gap-3 border-b border-gray-50 pb-3">
@@ -383,7 +394,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-x-auto">
                         <table class="w-full text-left text-sm whitespace-nowrap">
                             <thead class="bg-gray-50 text-gray-500 border-b border-gray-100 uppercase tracking-wider text-xs">
                                 <tr>
@@ -456,8 +467,8 @@
                         </div>
                         <div class="p-4 border-t border-gray-100 bg-white rounded-b-2xl">
                             <div class="flex gap-2">
-                                <input type="text" placeholder="Type your message..." class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 outline-none focus:border-primary text-sm">
-                                <button onclick="window.location.href='404.html'" class="bg-dark text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"><i class="fa-solid fa-paper-plane"></i></button>
+                                <input id="chat-input" type="text" placeholder="Type your message..." class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 outline-none focus:border-primary text-sm">
+                                <button onclick="if(document.getElementById('chat-input').value.trim() !== '') window.location.href='404.html'" class="bg-dark text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"><i class="fa-solid fa-paper-plane"></i></button>
                             </div>
                         </div>
                     </div>
@@ -467,7 +478,7 @@
                 <div id="section-settings" class="dashboard-section">
                     <h2 class="text-2xl font-bold text-dark mb-6">Account Settings</h2>
                     <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl">
-                        <form onsubmit="event.preventDefault(); alert('Settings saved successfully!');">
+                        <form onsubmit="event.preventDefault(); window.location.href='404.html';">
                             <div class="mb-6 flex items-center gap-6">
                                 <div class="w-20 h-20 bg-primary text-dark font-bold text-3xl rounded-full flex items-center justify-center">U</div>
                                 <button onclick="window.location.href='404.html'" type="button" class="border border-gray-300 text-sm font-bold px-4 py-2 rounded-lg hover:bg-gray-50 transition">Change Avatar</button>
@@ -476,17 +487,17 @@
                             <div class="grid md:grid-cols-2 gap-4 mb-6">
                                 <div>
                                     <label class="block text-sm font-bold text-gray-600 mb-1">First Name</label>
-                                    <input type="text" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="John">
+                                    <input type="text" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="John" required>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-600 mb-1">Last Name</label>
-                                    <input type="text" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="Doe">
+                                    <input type="text" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="Doe" required>
                                 </div>
                             </div>
                             
                             <div class="mb-6">
                                 <label class="block text-sm font-bold text-gray-600 mb-1">Email Address</label>
-                                <input type="email" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="john@example.com">
+                                <input type="email" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-primary" value="john@example.com" required>
                             </div>
                             
                             <div class="mb-8 border-t border-gray-100 pt-6">
@@ -632,6 +643,11 @@
         }
     </script>
 <script src="scritp.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="aos-init.js"></script>
+
 </body>
 </html>
 

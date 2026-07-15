@@ -79,6 +79,17 @@
             color: #9ca3af;
         }
     </style>
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Prevent overflow issues caused by AOS animations */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body class="font-sans text-gray-800 antialiased bg-gray-50">
 
@@ -128,38 +139,41 @@
                 <h2 class="text-3xl lg:text-4xl font-bold text-dark mb-4">We're Here to Help</h2>
                 <p class="text-gray-600 mb-10 text-sm leading-relaxed max-w-sm">Fill out the form and our team will get back to you as soon as possible.</p>
                 
-                <form class="space-y-6">
+                <form id="contact-form" class="space-y-6">
+                    <div id="form-error" class="text-red-500 text-sm hidden font-semibold">Please fill out all fields.</div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- Name -->
                         <div class="relative">
                             <i class="fa-regular fa-user input-icon"></i>
-                            <input type="text" placeholder="Your Name" class="form-input text-sm">
+                            <input type="text" id="contact-name" placeholder="Your Name" class="form-input text-sm" required>
                         </div>
                         <!-- Email -->
                         <div class="relative">
                             <i class="fa-regular fa-envelope input-icon"></i>
-                            <input type="email" placeholder="Email Address" class="form-input text-sm">
+                            <input type="email" id="contact-email" placeholder="Email Address" class="form-input text-sm" required>
+                            <div id="email-error" class="text-red-500 text-xs mt-1 hidden font-semibold">Please enter a valid email address.</div>
                         </div>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- Phone -->
                         <div class="relative">
                             <i class="fa-solid fa-phone input-icon"></i>
-                            <input type="text" placeholder="Phone Number" class="form-input text-sm">
+                            <input type="text" id="contact-phone" placeholder="Phone Number" class="form-input text-sm" required>
+                            <div id="phone-error" class="text-red-500 text-xs mt-1 hidden font-semibold">Please enter a valid phone number.</div>
                         </div>
                         <!-- Subject -->
                         <div class="relative">
                             <i class="fa-regular fa-file-lines input-icon"></i>
-                            <input type="text" placeholder="Subject" class="form-input text-sm">
+                            <input type="text" id="contact-subject" placeholder="Subject" class="form-input text-sm" required>
                         </div>
                     </div>
                     <!-- Message -->
                     <div class="relative">
                         <i class="fa-regular fa-pen-to-square textarea-icon"></i>
-                        <textarea placeholder="Your Message" rows="5" class="w-full p-4 pl-12 border border-gray-200 rounded-md outline-none focus:border-primary transition text-sm resize-none"></textarea>
+                        <textarea id="contact-message" placeholder="Your Message" rows="5" class="w-full p-4 pl-12 border border-gray-200 rounded-md outline-none focus:border-primary transition text-sm resize-none" required></textarea>
                     </div>
                     <!-- Submit Button -->
-                    <button onclick="window.location.href='404.html'" type="button" class="bg-primary text-dark font-bold px-8 py-4 rounded hover:bg-yellow-400 transition flex items-center justify-center gap-3">
+                    <button type="submit" class="bg-primary text-dark font-bold px-8 py-4 rounded hover:bg-yellow-400 transition flex items-center justify-center gap-3">
                         Send Message <i class="fa-regular fa-paper-plane"></i>
                     </button>
                 </form>
@@ -252,7 +266,7 @@
         <div class="relative w-full h-[450px] rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-[#eef1f6]">
             <!-- Google Map Embed -->
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.2527998939!2d-74.1197627448624!3d40.69766374878489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1691234567890!5m2!1sen!2s" 
+                src="https://maps.google.com/maps?q=11.6829566,78.1739798&hl=en&z=17&output=embed" 
                 class="absolute inset-0 w-full h-full border-0" 
                 allowfullscreen="" 
                 loading="lazy" 
@@ -263,9 +277,9 @@
             <div class="absolute top-1/2 left-6 md:left-12 transform -translate-y-1/2 bg-dark text-white p-8 md:p-10 rounded-xl shadow-2xl max-w-sm border border-gray-700 hidden sm:block z-10">
                 <h3 class="text-2xl font-bold mb-4">Find Us Here</h3>
                 <p class="text-gray-300 text-sm mb-8 leading-relaxed">Visit our office or use the map to get directions. We look forward to meeting you!</p>
-                <button onclick="window.location.href='404.html'" class="bg-primary text-dark font-bold px-6 py-3 rounded hover:bg-yellow-400 transition w-auto flex items-center justify-center gap-2">
+                <a href="https://www.google.com/maps/place/Stackly/@11.6829566,78.1739798,17z/data=!3m1!4b1!4m6!3m5!1s0x3babefef7fd970bb:0xe11aef1a71994f9!8m2!3d11.6829566!4d78.1739798!16s%2Fg%2F11l660s35r?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="bg-primary text-dark font-bold px-6 py-3 rounded hover:bg-yellow-400 transition w-auto inline-flex items-center justify-center gap-2">
                     Get Directions <i class="fas fa-arrow-right text-xs"></i>
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -275,7 +289,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto mb-16">
             <!-- Col 1 -->
             <div>
-                <div class="flex items-center gap-2 text-2xl font-bold text-white mb-6"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain rounded"></div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-white mb-6"><a href="index.html"><img src="assest/logo.1.png" alt="Stackly Logo" class="h-10 w-auto object-contain rounded"></a></div>
                 <p class="text-gray-400 text-sm leading-loose mb-6">
                     Building structures, building trust.<br>
                     Delivering quality construction<br>
@@ -319,11 +333,11 @@
                 <ul class="space-y-5 text-gray-400 text-sm">
                     <li class="flex items-start gap-4">
                         <i class="fa-solid fa-location-dot mt-1.5 text-primary text-base"></i>
-                        <span class="leading-relaxed">123 Construction Way,<br>BuildCity, BC 56789</span>
+                        <span class="leading-relaxed">MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</span>
                     </li>
                     <li class="flex items-center gap-4">
                         <i class="fa-solid fa-phone text-primary text-base"></i>
-                        <span>+1 (234) 567-8900</span>
+                        <span>9876543210</span>
                     </li>
                     <li class="flex items-center gap-4">
                         <i class="fa-solid fa-envelope text-primary text-base"></i>
@@ -335,15 +349,76 @@
 
         <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
             <p>© 2026 Stackly. All Rights Reserved.</p>
-            <a href="404.html" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-dark mt-4 md:mt-0 hover:bg-yellow-400 transition shadow-lg">
-                <i class="fa-solid fa-angle-up"></i>
-            </a>
+            
         </div>
     </footer>
 
     <script>
         </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const nameInput = document.getElementById('contact-name');
+                    const emailInput = document.getElementById('contact-email');
+                    const phoneInput = document.getElementById('contact-phone');
+                    const subjectInput = document.getElementById('contact-subject');
+                    const messageInput = document.getElementById('contact-message');
+                    
+                    const formError = document.getElementById('form-error');
+                    const emailError = document.getElementById('email-error');
+                    const phoneError = document.getElementById('phone-error');
+
+                    const nameVal = nameInput.value.trim();
+                    const emailVal = emailInput.value.trim();
+                    const phoneVal = phoneInput.value.trim();
+                    const subjectVal = subjectInput.value.trim();
+                    const messageVal = messageInput.value.trim();
+
+                    let isValid = true;
+
+                    // Check for empty fields
+                    if (!nameVal || !emailVal || !phoneVal || !subjectVal || !messageVal) {
+                        formError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        formError.classList.add('hidden');
+                    }
+
+                    // Email validation
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailVal && !emailRegex.test(emailVal)) {
+                        emailError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        emailError.classList.add('hidden');
+                    }
+
+                    // Phone validation (at least 10 digits, allows characters like space, dash, plus, parens)
+                    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+                    if (phoneVal && !phoneRegex.test(phoneVal)) {
+                        phoneError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        phoneError.classList.add('hidden');
+                    }
+
+                    if (isValid) {
+                        window.location.href = '404.html';
+                    }
+                });
+            }
+        });
+    </script>
 <script src="scritp.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="aos-init.js"></script>
+
 </body>
 </html>
 

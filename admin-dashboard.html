@@ -33,6 +33,17 @@
             font-weight: 700 !important;
         }
     </style>
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Prevent overflow issues caused by AOS animations */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
     
@@ -231,7 +242,7 @@
                 </div>
 
                 <!-- Advanced Data Table -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-x-auto">
                     <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <h3 class="font-bold text-lg text-dark">Active Projects Details</h3>
                         <div class="flex gap-2 w-full sm:w-auto">
@@ -383,19 +394,12 @@
             <div id="section-projects" class="dashboard-section">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-dark">Projects</h2>
-                    <button class="bg-primary text-dark px-4 py-2 rounded font-bold shadow hover:bg-yellow-400 transition"><i class="fa-solid fa-plus"></i> New Project</button>
+                    <button onclick="window.location.href='404.html'" class="bg-primary text-dark px-4 py-2 rounded font-bold shadow hover:bg-yellow-400 transition"><i class="fa-solid fa-plus"></i> New Project</button>
                 </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="p-4 border-b border-gray-100 flex gap-4 bg-gray-50">
-                        <input type="text" placeholder="Search projects..." class="flex-1 p-2 rounded border border-gray-200 outline-none focus:border-primary">
-                        <select class="p-2 rounded border border-gray-200 outline-none focus:border-primary text-gray-600">
-                            <option>All Statuses</option>
-                            <option>Active</option>
-                            <option>Completed</option>
-                        </select>
-                    </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse min-w-[600px]">
+                        <table id="projects-table" class="w-full text-left border-collapse min-w-[600px]">
                             <thead>
                                 <tr class="bg-gray-50 text-gray-500 text-xs uppercase">
                                     <th class="p-4 border-b">Project Name</th>
@@ -430,7 +434,7 @@
             <div id="section-team" class="dashboard-section">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-dark">Team & Users</h2>
-                    <button class="bg-dark text-white px-4 py-2 rounded font-bold shadow hover:bg-gray-800 transition"><i class="fa-solid fa-user-plus text-primary"></i> Invite User</button>
+                    <button onclick="window.location.href='404.html'" class="bg-dark text-white px-4 py-2 rounded font-bold shadow hover:bg-gray-800 transition"><i class="fa-solid fa-user-plus text-primary"></i> Invite User</button>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
                     <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
@@ -521,21 +525,22 @@
             <div id="section-settings" class="dashboard-section">
                 <h2 class="text-2xl font-bold text-dark mb-6">General Settings</h2>
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 max-w-2xl">
-                    <div class="space-y-5">
+                    <form id="admin-settings-form" class="space-y-5">
+                        <div id="admin-settings-error" class="text-red-500 text-sm hidden font-semibold">Please fill all fields</div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Company Name</label>
-                            <input type="text" value="Stackly Construction" class="w-full border border-gray-200 rounded-lg p-3 focus:border-primary outline-none transition">
+                            <input type="text" id="admin-company" value="Stackly Construction" class="w-full border border-gray-200 rounded-lg p-3 focus:border-primary outline-none transition" required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Contact Email</label>
-                            <input type="email" value="admin@stackly.com" class="w-full border border-gray-200 rounded-lg p-3 focus:border-primary outline-none transition">
+                            <input type="email" id="admin-email" value="admin@stackly.com" class="w-full border border-gray-200 rounded-lg p-3 focus:border-primary outline-none transition" required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Office Address</label>
-                            <textarea class="w-full border border-gray-200 rounded-lg p-3 focus:border-primary outline-none transition" rows="3">123 Construction Way, NY</textarea>
+                            <textarea id="admin-address" class="w-full border border-gray-200 rounded-lg p-3 focus:border-primary outline-none transition" rows="3" required>123 Construction Way, NY</textarea>
                         </div>
-                        <button onclick="window.location.href='404.html'" class="bg-primary text-dark font-bold px-8 py-3 rounded-lg hover:bg-yellow-400 transition shadow mt-2">Save Changes</button>
-                    </div>
+                        <button type="submit" class="bg-primary text-dark font-bold px-8 py-3 rounded-lg hover:bg-yellow-400 transition shadow mt-2">Save Changes</button>
+                    </form>
                 </div>
             </div>
 
@@ -549,7 +554,7 @@
                             <p class="font-bold text-dark mb-1">Two-Factor Authentication</p>
                             <p class="text-sm text-gray-500">Require an extra security code at login.</p>
                         </div>
-                        <button class="bg-gray-100 border border-gray-200 text-gray-600 px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition text-sm">Enable 2FA</button>
+                        <button onclick="window.location.href='404.html'" class="bg-gray-100 border border-gray-200 text-gray-600 px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition text-sm">Enable 2FA</button>
                     </div>
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
@@ -738,8 +743,46 @@
                 toggleSidebar();
             }
         }
+
+        // Projects Filter logic
+        function filterProjects(status) {
+            const rows = document.querySelectorAll('#projects-table tbody tr');
+            rows.forEach(row => {
+                const rowStatus = row.querySelector('td:nth-child(3)').textContent.trim();
+                if (status === 'All Statuses' || rowStatus === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // General Settings Form Validation
+        const adminForm = document.getElementById('admin-settings-form');
+        if (adminForm) {
+            adminForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const company = document.getElementById('admin-company').value.trim();
+                const email = document.getElementById('admin-email').value.trim();
+                const address = document.getElementById('admin-address').value.trim();
+                const errorDiv = document.getElementById('admin-settings-error');
+                
+                if (!company || !email || !address) {
+                    errorDiv.classList.remove('hidden');
+                } else {
+                    errorDiv.classList.add('hidden');
+                    window.location.href = '404.html';
+                }
+            });
+        }
     </script>
 <script src="scritp.js"></script>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="aos-init.js"></script>
+
 </body>
 </html>
 
